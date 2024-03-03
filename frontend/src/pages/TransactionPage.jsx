@@ -23,6 +23,8 @@ const TransactionPage = () => {
     }
   );
 
+  console.log("user inside transaction", data);
+
   const [formData, setFormData] = useState({
     description: data?.transaction?.description || "",
     paymentType: data?.transaction?.paymentType || "",

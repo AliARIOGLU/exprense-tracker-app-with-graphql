@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import User from "../models/user.model.js";
+import Transaction from "../models/transaction.model.js";
 
 const userResolver = {
   Mutation: {
@@ -90,12 +91,27 @@ const userResolver = {
 
     user: async (_, { userId }) => {
       try {
-        const user = await User.findById({ userId });
+        const user = await User.findById(userId);
 
         return user;
       } catch (error) {
         console.error("Error in user query:", error);
         throw new Error(error.message || "Error getting user");
+      }
+    },
+  },
+
+  // Burada anladığım kadarıyla EfCore'da include işlemi gibi bir mantık var. burası sayesinde client tarafında
+  // hem userin bilgileri hem de ona ait transactionları tek bir queryde alabildiğimiz GET_USER_AND_TRANSACTIONS yazılabiliyor. (Relationship)
+  User: {
+    transactions: async (parent) => {
+      try {
+        const transactions = await Transaction.find({ userId: parent._id });
+
+        return transactions;
+      } catch (error) {
+        console.log("Error user.transactions", error);
+        throw new Error(error.message || "Internal Server Error");
       }
     },
   },
