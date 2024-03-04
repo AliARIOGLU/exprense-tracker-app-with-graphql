@@ -16,7 +16,7 @@ export const CREATE_TRANSACTION = gql`
 
 export const UPDATE_TRANSACTION = gql`
   mutation UpdateTransaction($input: UpdateTransactionInput!) {
-    # NOT: bu altaki metot adı ve üstteki param. backenddeki typeDef ile eşleşmeli.
+    # NOT: bu alttaki metot adı ve üstteki param. karşısındaki tip backendde belirtilen typeDef ile eşleşmeli.
     updateTransaction(input: $input) {
       _id
       description

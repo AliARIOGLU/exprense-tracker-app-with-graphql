@@ -35,10 +35,12 @@ const Card = ({ transaction, profilePic }) => {
 
   const handleDelete = async () => {
     try {
-      await deleteTransaction({
+      const { data } = await deleteTransaction({
         variables: { transactionId: transaction._id },
       });
-      toast.success("Transaction deleted successfully");
+
+      const taskTitle = data.deleteTransaction.description;
+      toast.success(`Transaction ${taskTitle} deleted successfully`);
     } catch (error) {
       console.error("Error deleting transaction:", error);
       toast.error(error.message);

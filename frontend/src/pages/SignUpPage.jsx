@@ -38,11 +38,13 @@ const SignUpPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await signUp({
+      const user = await signUp({
         variables: {
           input: signUpData,
         },
       });
+
+      console.log(user);
     } catch (error) {
       console.error("Error:", error);
       toast.error(error.message);
